@@ -647,3 +647,181 @@ print("2. loan_threshold_comparison.csv")
 print("3. loan_test_predictions.csv")
 
 print("\nLOAN APPROVAL PREDICTION COMPLETED!")
+
+
+
+
+
+------------------------------------------------------------------------
+OUTPUT
+--------------------------------------------------------------------------
+============================================================
+LOAN APPROVAL PREDICTION
+============================================================
+
+Dataset Shape: (614, 13)
+
+First Five Rows:
+    Loan_ID Gender Married Dependents     Education Self_Employed  \
+0  LP001002   Male      No          0      Graduate            No   
+1  LP001003   Male     Yes          1      Graduate            No   
+2  LP001005   Male     Yes          0      Graduate           Yes   
+3  LP001006   Male     Yes          0  Not Graduate            No   
+4  LP001008   Male      No          0      Graduate            No   
+
+   ApplicantIncome  CoapplicantIncome  LoanAmount  Loan_Amount_Term  \
+0             5849                0.0         NaN             360.0   
+1             4583             1508.0       128.0             360.0   
+2             3000                0.0        66.0             360.0   
+3             2583             2358.0       120.0             360.0   
+4             6000                0.0       141.0             360.0   
+
+   Credit_History Property_Area Loan_Status  
+0             1.0         Urban           Y  
+1             1.0         Rural           N  
+2             1.0         Urban           Y  
+3             1.0         Urban           Y  
+4             1.0         Urban           Y  
+
+Column Names:
+['Loan_ID', 'Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History', 'Property_Area', 'Loan_Status']
+
+Missing Values:
+Loan_ID               0
+Gender               13
+Married               3
+Dependents           15
+Education             0
+Self_Employed        32
+ApplicantIncome       0
+CoapplicantIncome     0
+LoanAmount           22
+Loan_Amount_Term     14
+Credit_History       50
+Property_Area         0
+Loan_Status           0
+dtype: int64
+
+Duplicate Rows: 0
+
+Target Column: Loan_Status
+
+Target Distribution:
+Loan_Status
+1    422
+0    192
+Name: count, dtype: int64
+
+Target Percentages:
+Loan_Status
+1    68.73
+0    31.27
+Name: proportion, dtype: float64
+
+Numerical Features:
+['ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History']
+
+Categorical Features:
+['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'Property_Area']
+
+Training Records: 368
+Validation Records: 123
+Testing Records: 123
+
+Training: Logistic Regression
+
+Training: Decision Tree
+
+Training: Random Forest
+
+============================================================
+MODEL COMPARISON
+============================================================
+              Model  Accuracy  Precision  Recall  F1 Score  ROC-AUC
+Logistic Regression    0.8049     0.8675  0.8471    0.8571   0.8563
+      Decision Tree    0.7480     0.8649  0.7529    0.8050   0.7937
+      Random Forest    0.8374     0.8421  0.9412    0.8889   0.7929
+
+
+THRESHOLD COMPARISON
+              Model  Threshold  Validation F1
+Logistic Regression     0.3061         0.8691
+      Decision Tree     0.0833         0.8615
+      Random Forest     0.3785         0.8677
+
+Selected Model: Logistic Regression
+Selected Threshold: 0.3061
+
+============================================================
+FINAL TEST RESULTS
+============================================================
+Model: Logistic Regression
+Threshold: 0.3061
+Accuracy: 0.8699
+Precision: 0.8485
+Recall: 0.9882
+F1 Score: 0.913
+ROC-AUC: 0.8563
+
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+    Rejected       0.96      0.61      0.74        38
+    Approved       0.85      0.99      0.91        85
+
+    accuracy                           0.87       123
+   macro avg       0.90      0.80      0.83       123
+weighted avg       0.88      0.87      0.86       123
+
+
+
+CONFUSION MATRIX INTERPRETATION
+Correctly predicted rejections: 23
+Rejected cases predicted approved: 15
+Approved cases predicted rejected: 1
+Correctly predicted approvals: 84
+
+
+TOP 15 IMPORTANT FEATURES
+                             Feature  Importance
+             numeric__Credit_History    1.254408
+categorical__Property_Area_Semiurban    0.527874
+    categorical__Property_Area_Rural    0.433283
+           categorical__Dependents_1    0.360245
+          categorical__Dependents_3+    0.343689
+     categorical__Education_Graduate    0.283707
+ categorical__Education_Not Graduate    0.282832
+           categorical__Dependents_2    0.246349
+           categorical__Dependents_0    0.228917
+            categorical__Gender_Male    0.201745
+          categorical__Gender_Female    0.200870
+          numeric__CoapplicantIncome    0.159622
+       categorical__Self_Employed_No    0.127988
+            categorical__Married_Yes    0.127413
+      categorical__Self_Employed_Yes    0.127113
+
+
+============================================================
+BUSINESS INTERPRETATION
+============================================================
+
+The selected model is Logistic Regression.
+Test ROC-AUC: 0.8563
+Test precision: 0.8485
+Test recall: 0.9882
+Test F1-score: 0.9130
+
+Business Recommendations:
+1. Precision measures how many predicted approvals are actually approved in the historical data.
+2. Recall measures how many actual approvals the model correctly identifies.
+3. False approvals and false rejections have different financial consequences.
+4. Select a deployment threshold using expected credit losses, missed applicants, and business costs.
+5. Validate fairness, regulatory compliance, and model performance before deployment.
+6. Predictions should support human review rather than automatically determine lending decisions.
+
+Files created successfully:
+1. loan_model_comparison.csv
+2. loan_threshold_comparison.csv
+3. loan_test_predictions.csv
+
+LOAN APPROVAL PREDICTION COMPLETED!
